@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ismail Ceesay — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0d0d0d;
+    --white: #f2ede4;
+    --mid: #888880;
+    --border: 3px solid #0d0d0d;
+    --border-thin: 1px solid #0d0d0d;
+    --mono: 'Space Mono', monospace;
+    --display: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: crosshair;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--black);
+    border-bottom: var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border-right: var(--border);
+  }
+
+  .topbar-nav {
+    display: flex;
+  }
+
+  .topbar-nav a {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 18px;
+    border-left: 1px solid #333;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .topbar-nav a:hover {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  .topbar-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-left: var(--border);
+    margin-left: auto;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--white);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .status-text {
+    font-size: 9px;
+    color: var(--white);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--black);
+    border-bottom: var(--border);
+    overflow: hidden;
+    padding: 8px 0;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: ticker 22s linear infinite;
+  }
+
+  .ticker-item {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .ticker-sep { color: #444; }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    border-bottom: var(--border);
+    min-height: 380px;
+  }
+
+  .hero-main {
+    padding: 48px 40px;
+    border-right: var(--border);
+  }
+
+  .hero-kicker {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-kicker-num {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white);
+    padding: 2px 8px;
+    font-size: 9px;
+  }
+
+  .hero-name {
+    font-family: var(--display);
+    font-size: clamp(52px, 8vw, 92px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+
+  .hero-name .outline {
+    -webkit-text-stroke: 2px var(--black);
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+
+  .hero-btns {
+    display: flex;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: var(--border);
+    cursor: crosshair;
+    transition: all 0.1s;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--black);
+    border-left: none;
+  }
+
+  .btn-secondary:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .hero-sidebar {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-block {
+    padding: 16px 0;
+    border-bottom: var(--border-thin);
+  }
+
+  .sidebar-block:last-child { border-bottom: none; }
+
+  .sidebar-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+
+  .sidebar-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.4;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--black);
+    padding: 2px 7px;
+    color: var(--black);
+  }
+
+  .tag.filled {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    background: var(--black);
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border);
+    border-top: var(--border);
+  }
+
+  .section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .section-num {
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 0.1em;
+  }
+
+  /* PROJECTS */
+  .projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: var(--border);
+  }
+
+  .project-card {
+    padding: 36px 40px;
+    border-right: var(--border);
+    position: relative;
+    transition: background 0.1s;
+  }
+
+  .project-card:last-child { border-right: none; }
+  .project-card:hover { background: #eae5dc; }
+
+  .project-num {
+    font-size: 64px;
+    font-weight: 800;
+    color: #e0dbd2;
+    font-family: var(--display);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .project-name {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .project-type {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+
+  .project-links {
+    display: flex;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: var(--border);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: crosshair;
+    transition: all 0.1s;
+  }
+
+  .project-link:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .project-link + .project-link { border-left: none; }
+
+  .project-badge {
+    position: absolute;
+    top: 36px;
+    right: 40px;
+    background: var(--black);
+    color: var(--white);
+    padding: 3px 10px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: var(--border);
+  }
+
+  .skill-block {
+    padding: 28px 32px;
+    border-right: var(--border);
+  }
+
+  .skill-block:last-child { border-right: none; }
+
+  .skill-category {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--black);
+  }
+
+  .skill-item {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--black);
+    padding: 6px 0;
+    border-bottom: var(--border-thin);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .skill-item:last-child { border-bottom: none; }
+
+  .skill-level { display: flex; gap: 3px; }
+
+  .skill-pip {
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--black);
+  }
+
+  .skill-pip.filled { background: var(--black); }
+
+  /* ABOUT / CONTACT */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: var(--border);
+  }
+
+  .about-block {
+    padding: 40px;
+    border-right: var(--border);
+  }
+
+  .about-heading {
+    font-family: var(--display);
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .about-heading .outline {
+    -webkit-text-stroke: 2px var(--black);
+    color: transparent;
+  }
+
+  .about-text {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: var(--border);
+  }
+
+  .stat {
+    padding: 16px;
+    border-right: var(--border-thin);
+    border-bottom: var(--border-thin);
+  }
+
+  .stat:nth-child(even) { border-right: none; }
+  .stat:nth-last-child(-n+2) { border-bottom: none; }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 4px;
+  }
+
+  .contact-block { padding: 40px; }
+
+  .contact-heading {
+    font-family: var(--display);
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: var(--border-thin);
+  }
+
+  .contact-item:last-child { border-bottom: none; }
+
+  .contact-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .contact-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .contact-val a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .contact-cta {
+    margin-top: 28px;
+    display: block;
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+    padding: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: var(--border);
+    transition: all 0.1s;
+  }
+
+  .contact-cta:hover {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--black);
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left, .footer-right {
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 0.08em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-sidebar { border-top: var(--border); }
+    .projects { grid-template-columns: 1fr; }
+    .project-card { border-right: none; border-bottom: var(--border); }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skill-block:nth-child(2) { border-right: none; }
+    .skill-block:nth-child(3) { border-right: var(--border); border-top: var(--border); }
+    .skill-block:nth-child(4) { border-right: none; border-top: var(--border); }
+    .bottom-grid { grid-template-columns: 1fr; }
+    .about-block { border-right: none; border-bottom: var(--border); }
+    .hero-name { font-size: 52px; }
+    .topbar-nav a { padding: 12px 10px; font-size: 9px; }
+    .section-header { padding: 10px 20px; }
+    .hero-main { padding: 32px 20px; }
+    .project-card { padding: 28px 20px; }
+    .skill-block { padding: 20px; }
+    .about-block, .contact-block { padding: 28px 20px; }
+    .footer { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-logo">IJC.DEV</div>
+  <nav class="topbar-nav">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="topbar-status">
+    <div class="status-dot"></div>
+    <span class="status-text">Open to roles</span>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">Python</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Cybersecurity</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">AI Engineering</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Flask</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">FAISS</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Kali Linux</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">OpenAI API</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Distributed Systems</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Network Security</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Python</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Cybersecurity</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">AI Engineering</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Flask</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">FAISS</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Kali Linux</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">OpenAI API</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Distributed Systems</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Network Security</span><span class="ticker-item ticker-sep">·</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-kicker">
+      <span class="hero-kicker-num">001</span>
+      Computing Science Graduate — Edinburgh, Scotland
+    </div>
+    <h1 class="hero-name">
+      ISMAIL<br>
+      <span class="outline">CEESAY</span>
+    </h1>
+    <p class="hero-desc">
+      Software engineer and security researcher building things that work.
+      Python, AI pipelines, distributed systems, and security tooling.
+      First-class marks in cybersecurity and NLP. Currently open to graduate roles.
+    </p>
+    <div class="hero-btns">
+      <a href="https://github.com/Zyarix" class="btn btn-primary" target="_blank">↗ GitHub</a>
+      <a href="#projects" class="btn btn-secondary">View Work</a>
+    </div>
+  </div>
+  <div class="hero-sidebar">
+    <div class="sidebar-block">
+      <div class="sidebar-label">Location</div>
+      <div class="sidebar-val">Edinburgh, Scotland</div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Education</div>
+      <div class="sidebar-val">BSc Computing Science<br>University of Stirling</div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Specialisms</div>
+      <div class="tag-list">
+        <span class="tag filled">Cybersecurity</span>
+        <span class="tag filled">AI / ML</span>
+        <span class="tag">Backend Eng</span>
+        <span class="tag">Networking</span>
+      </div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Status</div>
+      <div class="sidebar-val">✓ Open to opportunities</div>
+    </div>
+    <div class="sidebar-block">
+      <div class="sidebar-label">Certifications</div>
+      <div class="sidebar-val">Google Cybersecurity<br>Certificate (in progress)</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-header" id="projects">
+  <span class="section-title">// Selected Projects</span>
+  <span class="section-num">02 / 04</span>
+</div>
+
+<section class="projects">
+  <div class="project-card">
+    <div class="project-badge">AI · RAG</div>
+    <div class="project-num">01</div>
+    <div class="project-name">Yakazi</div>
+    <div class="project-type">AI-Powered Requirements Elicitation Chatbot</div>
+    <p class="project-desc">
+      Full-stack AI system simulating a software engineering client for student training.
+      Built with GPT-4, FAISS vector search, Flask REST API, and Tkinter UI.
+      Three independently deployable microservices communicating over HTTP.
+    </p>
+    <div class="project-stack">
+      <span class="tag">Python</span>
+      <span class="tag">Flask</span>
+      <span class="tag">OpenAI GPT-4</span>
+      <span class="tag">FAISS</span>
+      <span class="tag">RAG</span>
+      <span class="tag">Tkinter</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/Zyarix/yakazi" class="project-link" target="_blank">↗ GitHub</a>
+      <a href="https://github.com/Zyarix/yakazi#readme" class="project-link" target="_blank">README</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-badge">Security</div>
+    <div class="project-num">02</div>
+    <div class="project-name">NetRecon</div>
+    <div class="project-type">Modular Network Reconnaissance Tool</div>
+    <p class="project-desc">
+      Multi-threaded network security tool performing TCP port scanning, ARP host
+      discovery, OS fingerprinting via TTL heuristics, banner grabbing, and
+      automated CVE-based vulnerability detection. JSON and HTML report export.
+    </p>
+    <div class="project-stack">
+      <span class="tag">Python</span>
+      <span class="tag">Scapy</span>
+      <span class="tag">Kali Linux</span>
+      <span class="tag">Wireshark</span>
+      <span class="tag">CVE</span>
+      <span class="tag">TCP/IP</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/Zyarix/netrecon" class="project-link" target="_blank">↗ GitHub</a>
+      <a href="https://github.com/Zyarix/netrecon#readme" class="project-link" target="_blank">README</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-header" id="skills">
+  <span class="section-title">// Skills & Tools</span>
+  <span class="section-num">03 / 04</span>
+</div>
+
+<section class="skills-grid">
+  <div class="skill-block">
+    <div class="skill-category">Languages</div>
+    <div class="skill-item">Python
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div>
+      </div>
+    </div>
+    <div class="skill-item">Java
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">SQL
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">Lua
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div><div class="skill-pip"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-block">
+    <div class="skill-category">Security</div>
+    <div class="skill-item">Wireshark
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">Kali Linux
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">Scapy
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">Digital Forensics
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-block">
+    <div class="skill-category">AI & Data</div>
+    <div class="skill-item">OpenAI API
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">FAISS
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">RAG Architecture
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">MongoDB
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-block">
+    <div class="skill-category">Tools & Infra</div>
+    <div class="skill-item">Git / GitHub
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">Linux
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">Flask
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+    <div class="skill-item">REST APIs
+      <div class="skill-level">
+        <div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip filled"></div><div class="skill-pip"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-header" id="about">
+  <span class="section-title">// About & Contact</span>
+  <span class="section-num">04 / 04</span>
+</div>
+
+<section class="bottom-grid">
+  <div class="about-block">
+    <h2 class="about-heading">ABOUT<br><span class="outline">ME</span></h2>
+    <p class="about-text">
+      Computing Science graduate from the University of Stirling with first-class marks in
+      Computer Security & Networks, NLP & Computer Vision, and NoSQL Databases.
+      I build things from scratch — security tools, AI systems, distributed backends.
+      I learn fast, debug thoroughly, and ship working software.
+    </p>
+    <p class="about-text">
+      Edinburgh based and actively seeking graduate roles in software engineering,
+      cybersecurity, and AI. Open to opportunities across the UK.
+    </p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Live Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">77%</div>
+        <div class="stat-label">Cybersecurity Grade</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1st</div>
+        <div class="stat-label">Class Modules</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">UK</div>
+        <div class="stat-label">Right to Work</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-block" id="contact">
+    <h2 class="contact-heading">GET IN<br>TOUCH</h2>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-val"><a href="mailto:I.ceesay@outlook.com">I.ceesay@outlook.com</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">GitHub</span>
+      <span class="contact-val"><a href="https://github.com/Zyarix" target="_blank">github.com/Zyarix</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Location</span>
+      <span class="contact-val">Edinburgh, Scotland</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Phone</span>
+      <span class="contact-val">+44 07803 350282</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Availability</span>
+      <span class="contact-val">Immediately available</span>
+    </div>
+    <a href="mailto:I.ceesay@outlook.com" class="contact-cta">↗ Get In Touch</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-left">© 2025 Ismail Jonkunda Ceesay — Edinburgh, Scotland</span>
+  <span class="footer-right">zyarix.github.io</span>
+</footer>
+
+</body>
+</html>
